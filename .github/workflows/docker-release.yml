@@ -37,7 +37,7 @@ jobs:
       - name: Build and Push Docker image
         run: |
           VERSION=${GITHUB_REF_NAME#v}
-          IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/sonovel
+          IMAGE_NAME=$(echo "ghcr.io/${{ github.repository_owner }}/sonovel" | tr '[:upper:]' '[:lower:]')
           echo "Building Docker image $IMAGE_NAME:$VERSION ..."
           docker build -t $IMAGE_NAME:$VERSION -t $IMAGE_NAME:latest .
           docker push $IMAGE_NAME:$VERSION
@@ -46,5 +46,5 @@ jobs:
       # 输出镜像地址
       - name: Output image info
         run: |
-          IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/sonovel
+          IMAGE_NAME=$(echo "ghcr.io/${{ github.repository_owner }}/sonovel" | tr '[:upper:]' '[:lower:]')
           echo "Docker image published: ${IMAGE_NAME}:$VERSION"
